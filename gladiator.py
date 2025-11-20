@@ -16,8 +16,6 @@ attack_list = ["sidestep", "swing", "lunge", "block"]
 
 enemy_attack = random.choice(attack_list)
 
-
-
 loopen_körs = True
 
 
@@ -42,7 +40,8 @@ if choose == "start":
     elif (attack == "swing" and enemy_attack == "sidestep") or \
              (attack == "sidestep" and enemy_attack == "lunge") or \
              (attack == "lunge" and enemy_attack == "block") or \
-             (attack == "block" and enemy_attack == "swing"):
+             (attack == "block" and enemy_attack == "swing") or \
+             (attack == "sidestep" and enemy_attack == "block"):
             
             print("Du träffar! Ren träff!")
             easy_npc = easy_npc - 1
@@ -61,7 +60,8 @@ if choose == "start":
             elif (attack_2 == "swing" and enemy_attack_2 == "sidestep") or \
                  (attack_2 == "sidestep" and enemy_attack_2 == "lunge") or \
                  (attack_2 == "lunge" and enemy_attack_2 == "block") or \
-                 (attack_2 == "block" and enemy_attack_2 == "swing"):
+                 (attack_2 == "block" and enemy_attack_2 == "swing") or \
+                (attack_2 == "sidestep" and enemy_attack_2 == "block"):
             
                 print("You hit him with a clean strike!")
                 easy_npc = easy_npc - 1
@@ -75,8 +75,33 @@ if choose == "start":
     if go_to_sleep_little_baby == "sleep":
         print("You go to sleep and regain 5 hp. The guards wake you up after some time and drags you out to the arena again as you're forced to fight again.")
         health = health + 5
+        loopen_körs = True
     elif go_to_sleep_little_baby == "fight":
         print("You ready your sword as you say to the guards that you shall fight again. The guards looks at eachother and answers, very well then, pushes you out to the arena again. As you get your stance ready you see a even more fierceful enemy. The fight begins.")
+        loopen_körs = True
+    while loopen_körs == True:
+        enemy_attack_3 = random.choice(attack_list)
+        attack_4 = input(f"Your hp is {health}, your enemy's hp is {intermediate_npc}. What do you do? {attack_list}")
+        print(f"You used {attack_4}!")
+        print(f"Your enemy used {enemy_attack_3}!")
+        if attack_4 == enemy_attack_3:
+                print("You both attack but ultimately miss.")
+            
+        elif (attack_4 == "swing" and enemy_attack_3 == "sidestep") or \
+                (attack_4 == "sidestep" and enemy_attack_3 == "lunge") or \
+                (attack_4 == "lunge" and enemy_attack_3 == "block") or \
+                (attack_4 == "block" and enemy_attack_3 == "swing") or \
+                (attack_4 == "sidestep" and enemy_attack_3 == "block"):
+
+            
+                print("You hit him with a clean strike!")
+                intermediate_npc = intermediate_npc - 1
+        else:
+                print(f"The enemies {enemy_attack_3} counters your {attack_2}! You get hit with a fierceful attack!")
+                health = health - 1
+        if intermediate_npc == 0:
+            print("Your enemy tumbles to the ground with your sword in his chest, you drag your sword out and put it up high and the crowd goes wild.")
+            loopen_körs = False
 
 elif choose == "credits":
     print("This game was made by SaltChips aka Maxi. Please restart the game.")
